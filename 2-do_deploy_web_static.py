@@ -19,9 +19,8 @@ def do_deploy(archive_path):
     file = archive_path.split("/")[-1]
     fname = file.split(".")[0]
 
-    if put(archive_path, "/tmp/{}".format(fname)).failed is True:
+    if put(archive_path, "/tmp/{}".format(file)).failed is True:
         return False
-
     if run("rm -rf /data/web_static/releases/{}/".
            format(fname)).failed is True:
         return False
@@ -34,7 +33,8 @@ def do_deploy(archive_path):
     if run("rm /tmp/{}".format(file)).failed is True:
         return False
     if run("mv /data/web_static/releases/{}/web_static/* "
-           "/data/web_static/releases/{}/".format(fname, fname)).failed is True:
+           "/data/web_static/releases/{}/"
+           .format(fname, fname)).failed is True:
         return False
     if run("rm -rf /data/web_static/releases/{}/web_static".
            format(fname)).failed is True:
