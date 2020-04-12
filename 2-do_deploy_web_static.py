@@ -4,7 +4,7 @@ import os.path
 from fabric.api import env, put, run
 
 env.hosts = ["34.74.141.15", "34.73.24.78"]
-env.user = ["ubuntu"]
+
 
 def do_deploy(archive_path):
     """distributes an archive to your web servers
@@ -22,23 +22,26 @@ def do_deploy(archive_path):
     if put(archive_path, "/tmp/{}".format(fname)).failed is True:
         return False
 
-    steps = {
-        "0": "rm -rf /data/web_static/releases/{}/".
-        format(fname),
-        "1": "tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
-        format(file, fname),
-        "2": "tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
-        format(file, fname),
-        "3": "rm /tmp/{}".format(file),
-        "4": "mv /data/web_static/releases/{}/web_static/* "
-        "/data/web_static/releases/{}/".format(fname, fname),
-        "5": "rm -rf /data/web_static/releases/{}/web_static".
-        format(fname),
-        "6": "rm -rf /data/web_static/current",
-        "7": "ln -s /data/web_static/releases/{}/ /data/web_static/current".
-        format(fname)
-    }
-    for i in steps.values():
-        if run(i).failed is True:
-            return False
+    if run("rm -rf /data/web_static/releases/{}/".
+           format(fname)).failed is True:
+        return False
+    if run("mkdir -p /data/web_static/releases/{}/".
+           format(fname)).failed is True:
+        return False
+    if run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+           format(file, fname)).failed is True:
+        return False
+    if run("rm /tmp/{}".format(file)).failed is True:
+        return False
+    if run("mv /data/web_static/releases/{}/web_static/* "
+           "/data/web_static/releases/{}/".format(fname, fname)).failed is True:
+        return False
+    if run("rm -rf /data/web_static/releases/{}/web_static".
+           format(fname)).failed is True:
+        return False
+    if run("rm -rf /data/web_static/current").failed is True:
+        return False
+    if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
+           format(fname)).failed is True:
+        return False
     return True
