@@ -1,4 +1,4 @@
-# AirBnB_clone_v2.
+# AirBnB_clone_v2..
 **Command interpreter to manage the AirBnB objects**
 ****
 ## About this project
