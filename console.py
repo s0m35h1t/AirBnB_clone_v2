@@ -18,7 +18,7 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     __models = {"BaseModel", "User", "State", "City",
-                   "Amenity", "Place", "Review"}
+                "Amenity", "Place", "Review"}
 
     def emptyline(self):
         """Ignores empty spaces"""
