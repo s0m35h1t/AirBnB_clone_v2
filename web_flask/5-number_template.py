@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Flask web application.
-Host: 0.0.0.0 
+Host: 0.0.0.0
 port: 5000
 Routes:
     /: Displays 'Hello HBNB!'
@@ -18,10 +18,10 @@ app = Flask(__name__)
 @app.route("/", strict_slashes=False)
 def hello_hbnb():
     """Displays 'Hello HBNB!'
-    
+
     Arguments:
         None
-    
+
     Returns:
         (str)
     """
@@ -31,14 +31,15 @@ def hello_hbnb():
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
     """Displays 'Hello HBNB!'
-    
+
     Arguments:
         None
-    
+
     Returns:
-        (str) 
+        (str)
     """
     return "HBNB"
+
 
 @app.route("/c/<text>", strict_slashes=False)
 def c(text):
@@ -49,6 +50,7 @@ def c(text):
         (str) Replaces _ with spaces in text
     """
     return "C {}".format(text.replace("_", " "))
+
 
 @app.route("/python", strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
@@ -61,17 +63,19 @@ def python(text="is cool"):
     """
     return "Python {}".format(text.replace("_", " "))
 
+
 @app.route("/number/<int:n>", strict_slashes=False)
 def number(n):
     """Displays 'n is a number' if n is an int.
-    
+
     Arguments:
         n (int): params
-    
+
     Returns:
         (str)
     """
     return "{} is a number".format(n)
+
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def number_template(n):
@@ -82,6 +86,7 @@ def number_template(n):
         Render (HTMl) template 5-number.html
     """
     return render_template("5-number.html", n=n)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Flask web application.
-Host: 0.0.0.0 
+Host: 0.0.0.0
 port: 5000
 Routes:
     /states_list: HTML page with a list of all States in DB.
@@ -10,19 +10,19 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+
 @app.route("/cities_by_states", strict_slashes=False)
 def cities_by_states():
     """Render an HTML template with a list of all states and related cities
 
     Arguments:
         None
-    
+
     Returns:
         Render (Html) template 8-cities_by_states.html
     """
     states = storage.all("State")
     return render_template("8-cities_by_states.html", states=states)
-
 
 
 @app.teardown_appcontext

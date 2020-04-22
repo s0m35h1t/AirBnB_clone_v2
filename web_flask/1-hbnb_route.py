@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Flask web application.
-Host: 0.0.0.0 
+Host: 0.0.0.0
 port: 5000
 Routes:
     /: Displays 'Hello HBNB!'
@@ -32,7 +32,7 @@ def hbnb():
         None
 
     Returns:
-        (str) 
+        (str)
     """
     return "HBNB"
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Flask web application.
-Host: 0.0.0.0 
+Host: 0.0.0.0
 port: 5000
 Routes:
     /states: HTML template with all State.
@@ -10,6 +10,7 @@ from models import storage
 from flask import Flask, render_template
 
 app = Flask(__name__)
+
 
 @app.route("/states", strict_slashes=False)
 def states():
@@ -31,12 +32,13 @@ def states_id(id):
     Arguments:
         id: params state id
     Returns:
-        Render (Html) template 9-states.html    
+        Render (Html) template 9-states.html
     """
     for state in storage.all("State").values():
         if state.id == id:
             return render_template("9-states.html", state=state)
     return render_template("9-states.html")
+
 
 @app.teardown_appcontext
 def teardown(exc):
