@@ -21,7 +21,8 @@ class DBStorage:
     """
     __engine = None
     __session = None
-    __mdoels= ["State", "City", "User", "Place", "Review", "Amenity"]
+    __mdoels = ["State", "City", "User", "Place", "Review", "Amenity"]
+
     def __init__(self):
         """
         """
@@ -30,7 +31,10 @@ class DBStorage:
         host = getenv("HBNB_MYSQL_HOST")
         db = getenv("HBNB_MYSQL_DB")
         self.__engine = create_engine(
-            "mysql+mysqldb://{}:{}@{}/{}".format(user, pwd, host, db), pool_pre_ping=True)
+            "mysql+mysqldb://{}:{}@{}/{}".format(user,
+                                                 pwd,
+                                                 host,
+                                                 db), pool_pre_ping=True)
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
 
@@ -45,7 +49,7 @@ class DBStorage:
     def all(self, cls=None):
         """query on the current database session (self.__session)
         all objects depending of the class name cls
-        
+
         Arguments:
             cls (str) Model instance class name
         """
@@ -57,11 +61,12 @@ class DBStorage:
             if type(cls) == str:
                 cls = eval(cls)
             objs = self.__session.query(cls)
-        return {"{}.{}".format(type(obj).__name__, obj.id): obj for obj in objs}
+        return {"{}.{}".format(type(obj).__name__,
+                               obj.id): obj for obj in objs}
 
     def save(self):
         """commit all changes of the current database session
-        
+
         Arguments:
             None
         """
@@ -69,7 +74,7 @@ class DBStorage:
 
     def delete(self, obj):
         """delete from the current database session obj if not None
-        
+
         Arguments:
             obj (object) Model instance object
         """
@@ -78,7 +83,7 @@ class DBStorage:
 
     def reload(self):
         """create all tables in the database (feature of SQLAlchemy)
-        and create the current database session 
+        and create the current database sessions
 
         Arguments:
             None
@@ -90,7 +95,7 @@ class DBStorage:
         self.__session = Session()
 
     def close(self):
-        """close the current database session 
+        """close the current database session
 
         Arguments
             None
